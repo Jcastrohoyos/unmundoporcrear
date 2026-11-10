@@ -307,6 +307,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 120px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -790,9 +791,13 @@ i[class^="ph-"] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  justify-content: safe center;
   gap: var(--space-xl);
   padding: var(--gutter);
   padding-top: 88px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-normal);
@@ -820,6 +825,30 @@ i[class^="ph-"] {
   margin-top: var(--space-lg);
   width: 100%;
   max-width: 300px;
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+}
+
+/* En pantallas bajas (teléfonos pequeños o teclado abierto) el menú
+   centrado se desbordaba por arriba y por abajo: el primer enlace
+   quedaba debajo del navbar y el botón "Matrículas" era inalcanzable */
+@media (max-height: 760px) {
+  .mobile-menu {
+    gap: var(--space-md);
+    padding-top: 76px;
+    padding-bottom: var(--space-lg);
+  }
+
+  .mobile-menu a {
+    font-size: var(--text-h4);
+  }
+
+  .mobile-menu .btn {
+    margin-top: var(--space-md);
+    font-size: var(--text-body-sm);
+  }
 }
 
 /* ========================================
@@ -829,7 +858,7 @@ i[class^="ph-"] {
   min-height: 90vh;
   display: flex;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 140px;
   padding-bottom: var(--space-xl);
   position: relative;
   overflow: hidden;
@@ -4965,123 +4994,10 @@ i[class^="ph-"] {
 }
 
 /* ========================================
-   BREADCRUMBS
-   ======================================== */
-.breadcrumb-nav {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  padding: var(--space-sm) 0;
-}
-
-.breadcrumb-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
-
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-}
-
-.breadcrumb-item a {
-  color: var(--color-primary-600);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.breadcrumb-item a:hover {
-  color: var(--color-primary-700);
-  text-decoration: underline;
-}
-
-.breadcrumb-item[aria-current="page"] {
-  color: var(--color-text-900);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* ========================================
    MAIN
    ======================================== */
 main {
   display: block;
-}
-
-/* ========================================
-   FAQ - PREGUNTAS FRECUENTES (SEO/GEO)
-   ======================================== */
-.faq {
-  background: var(--color-white);
-}
-
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
-}
-
-.faq-item {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-lg);
-  transition: all var(--transition-normal);
-}
-
-.faq-item:hover {
-  border-color: var(--color-primary-200);
-  box-shadow: var(--shadow-sm);
-}
-
-.faq-question {
-  font-family: var(--font-heading);
-  font-size: var(--text-h3);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-900);
-  margin: 0 0 var(--space-sm) 0;
-  cursor: pointer;
-  line-height: 1.4;
-}
-
-.faq-answer {
-  color: var(--color-text-500);
-  font-size: var(--text-body);
-  line-height: var(--line-height-relaxed);
-  margin: 0;
-}
-
-.faq-answer p {
-  margin: 0;
-}
-
-@media (max-width: 768px) {
-  .faq-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .faq-item {
-    padding: var(--space-md);
-  }
-}
-
-@media (max-width: 480px) {
-  .breadcrumb-list {
-    gap: var(--space-xs);
-    overflow-x: auto;
-    padding-bottom: var(--space-xs);
-  }
-
-  .breadcrumb-item {
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
 }
 
 /* ========================================

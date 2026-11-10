@@ -24,10 +24,8 @@ Esta guía explica qué se configuró, qué significa cada cosa y qué debes hac
 | `robots.txt` | ✅ | Permite rastreo completo y apunta al sitemap |
 | Preload de hero image | ✅ | Mejora LCP (Largest Contentful Paint) — velocidad de carga |
 | Preconnect a dominios externos | ✅ | Acelera carga de fuentes, Google, WhatsApp |
-| Datos estructurados JSON-LD | ✅ | EducationalOrganization, BreadcrumbList, FAQPage |
-| Breadcrumbs visibles | ✅ | Ruta de navegación visible para usuarios y Google |
+| Datos estructurados JSON-LD | ✅ | EducationalOrganization, ImageGallery |
 | Etiqueta `<main>` | ✅ | Semántica HTML: identifica el contenido principal |
-| Sección FAQ visible | ✅ | Preguntas frecuentes con respuestas claras |
 | Alt texts en imágenes | ✅ | Descripciones para accesibilidad y búsqueda de imágenes |
 
 ### GEO (Generative Engine Optimization)
@@ -37,8 +35,7 @@ GEO se trata de optimizar para que los motores de respuesta de IA (Google SGE, B
 | Elemento | Estado | Qué hace |
 |---|---|---|
 | `EducationalOrganization` JSON-LD | ✅ | Entidad estructurada con nombre, dirección, teléfono, horario, servicios, años de fundación |
-| `BreadcrumbList` JSON-LD | ✅ | Jerarquía clara del sitio para la IA |
-| `FAQPage` JSON-LD | ✅ | Preguntas y respuestas estructuradas para citas directas |
+| `ImageGallery` JSON-LD | ✅ | Galería de instalaciones con imágenes y descripciones |
 | Contenido semántico (`<main>`, `<section>`, `<article>`) | ✅ | Estructura clara que los modelos de IA pueden leer fácilmente |
 | Entidades nombradas claras | ✅ | Dirección exacta, teléfono, horarios, edades, niveles, localidad (Usaquén, Santa Bárbara) |
 | Contenido conversacional | ✅ | Preguntas frecuentes redactadas de forma natural, como las haría un usuario |
@@ -47,7 +44,7 @@ GEO se trata de optimizar para que los motores de respuesta de IA (Google SGE, B
 
 ## 2. Datos estructurados implementados (JSON-LD)
 
-El sitio incluye tres tipos de datos estructurados en `<head>`:
+El sitio incluye dos tipos de datos estructurados en `<head>`:
 
 ### 1. EducationalOrganization
 Define al jardín como organización educativa con:
@@ -62,15 +59,10 @@ Define al jardín como organización educativa con:
 - Rango de precios (`$$`)
 - Horario de atención (Lunes a Viernes, 7:00 - 17:00)
 
-### 2. BreadcrumbList
-Ruta de navegación: Inicio > Niveles y Actividades > Contacto
+### 2. ImageGallery
+Galería de las instalaciones (fachada, aulas, zonas de juego) con imagen, nombre y descripción de cada foto.
 
-### 3. FAQPage
-Cuatro preguntas frecuentes con respuestas estructuradas:
-- ¿Qué edades atiende?
-- ¿Dónde queda el jardín?
-- ¿Cuál es el horario?
-- ¿Cómo matricular o agendar visita?
+> **Nota:** el sitio es de una sola página (navegación por anclas), así que **no se usa `BreadcrumbList`** ni `FAQPage`. Google exige que los datos estructurados correspondan a contenido **visible** en la página; como no hay migas de pan ni sección FAQ, no se declaran. Si en el futuro se agregan subpáginas reales (`/contacto`, `/niveles`), ahí sí se pueden añadir ambos de forma útil.
 
 ---
 
@@ -148,7 +140,7 @@ En lugar de solo decir "Somos un buen jardín", responde:
 - Encabezados (`<h2>`, `<h3>`) con preguntas reales de usuarios
 
 ### Incluye datos estructurados (ya hechos)
-El JSON-LD de `EducationalOrganization`, `FAQPage` y `BreadcrumbList` ya está implementado. Mantén estos datos actualizados.
+El JSON-LD de `EducationalOrganization` e `ImageGallery` ya está implementado. Mantén estos datos actualizados.
 
 ### Menciona tu entidad claramente
 - Nombre completo: "Jardín Infantil CREAR"
@@ -163,8 +155,8 @@ El JSON-LD de `EducationalOrganization`, `FAQPage` y `BreadcrumbList` ya está i
 
 | Archivo | Cambio |
 |---|---|
-| `index.html` | Meta tags mejorados, JSON-LD estructurado (EducationalOrganization + BreadcrumbList + FAQPage), breadcrumbs visibles, `<main>`, sección FAQ, hreflang, robots meta |
-| `css/styles.css` | Estilos de breadcrumbs, main, FAQ grid, items, preguntas y respuestas |
+| `index.html` | Meta tags mejorados, JSON-LD estructurado (EducationalOrganization + ImageGallery), `<main>`, hreflang, robots meta |
+| `css/styles.css` | Estilos del menú móvil responsive, `main`, offset de navegación con navbar fijo |
 | `sitemap.xml` | Actualizado con lastmod y secciones clave (niveles, contacto, blog) |
 | `robots.txt` | Apunta al sitemap correcto |
 | `GUIA-GOOGLE-ADS.md` | Guía para Google Ads (creada previamente) |
