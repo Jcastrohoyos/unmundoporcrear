@@ -1034,7 +1034,10 @@ i[class^="ph-"] {
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: var(--space-3xl);
+  grid-template-areas:
+    "content image"
+    "buttons image";
+  gap: var(--space-lg) var(--space-3xl);
   align-items: center;
 }
 
@@ -1043,9 +1046,25 @@ i[class^="ph-"] {
   min-width: 0;
 }
 
+.hero-content {
+  grid-area: content;
+}
+
+.hero-buttons {
+  grid-area: buttons;
+}
+
+.hero-image-wrapper {
+  grid-area: image;
+}
+
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "content"
+      "image"
+      "buttons";
     text-align: center;
     gap: var(--space-2xl);
   }
@@ -1281,7 +1300,7 @@ i[class^="ph-"] {
 
 @media (max-width: 480px) {
   .hero-matriculas-title .matriculas-main {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+    font-size: clamp(1.9rem, 9.5vw, 2.7rem);
   }
 }
 
@@ -1340,29 +1359,15 @@ i[class^="ph-"] {
   }
 }
 
-/* Asegurar visibilidad del título de matrículas en móvil */
+/* Título de matrículas en móvil: se mantiene la animación de escritorio
+   (degradado con brillo) y solo se ajusta el salto de línea */
 @media (max-width: 768px) {
 
-  .matriculas-text,
-  .matriculas-main {
-    color: var(--color-primary-700);
-    -webkit-text-fill-color: var(--color-primary-700);
-    background: transparent;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    filter: none;
-  }
-
   .matriculas-text {
-    display: inline;
+    display: inline-block;
     white-space: normal;
     max-width: 100%;
     overflow-wrap: break-word;
-  }
-
-  .matriculas-text::before,
-  .matriculas-text::after {
-    display: none;
   }
 }
 
@@ -1427,7 +1432,7 @@ i[class^="ph-"] {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  margin-bottom: 0;
 }
 
 @media (max-width: 1024px) {
@@ -1453,6 +1458,14 @@ i[class^="ph-"] {
 .hero-buttons .btn-lg {
   padding: var(--space-lg) var(--space-xl);
   font-size: var(--text-body);
+}
+
+/* Botones del hero más compactos en móvil */
+@media (max-width: 768px) {
+  .hero-buttons .btn-lg {
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--text-body-sm);
+  }
 }
 
 /* Hero Carousel - Diferenciales */
@@ -4914,30 +4927,6 @@ i[class^="ph-"] {
    FIXES DEFINITIVOS PARA MÓVIL (prioridad máxima)
    ======================================== */
 @media (max-width: 768px) {
-
-  /* Título de matrículas: forzar color sólido visible */
-  .hero-matriculas-title,
-  .matriculas-main {
-    background: transparent !important;
-  }
-
-  .matriculas-text {
-    color: var(--color-primary-700) !important;
-    -webkit-text-fill-color: var(--color-primary-700) !important;
-    background: transparent !important;
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-    filter: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    -webkit-text-stroke: 0 !important;
-  }
-
-  .matriculas-text::before,
-  .matriculas-text::after {
-    display: none !important;
-    content: none !important;
-  }
 
   /* Botón hamburguesa: asegurar que se muestre siempre en móvil */
   .navbar-actions {
