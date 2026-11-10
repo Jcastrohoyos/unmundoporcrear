@@ -1101,7 +1101,7 @@ i[class^="ph-"] {
 /* Original matriculas-main style */
 .hero-matriculas-title .matriculas-main {
   font-family: var(--font-heading);
-  font-size: var(--text-h2);
+  font-size: clamp(2.6rem, 4.5vw + 0.8rem, 4rem);
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
   color: var(--color-text-900);
@@ -1114,7 +1114,7 @@ i[class^="ph-"] {
 
 @media (max-width: 480px) {
   .hero-matriculas-title .matriculas-main {
-    font-size: clamp(1.25rem, 6.5vw, 1.75rem);
+    font-size: clamp(1.5rem, 7vw, 2rem);
   }
 }
 
