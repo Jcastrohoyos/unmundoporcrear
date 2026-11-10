@@ -587,7 +587,7 @@ expandButtons.forEach(btn => {
   const wrapper = document.querySelector('.hero-typewriter');
   if (!wrapper) return;
 
-  const words = ['imaginación', 'creatividad', 'juego', 'exploración', 'amor'];
+  const words = ['imaginación', 'creatividad','exploración',];
   let idx = 0;
 
   // Respect reduced-motion preference
