@@ -2177,6 +2177,17 @@ i[class^="ph-"] {
   font-size: 1.65rem;
   margin: 0 auto var(--space-lg);
   transition: all var(--transition-normal);
+  animation: icon-float 5s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .extra-card:hover .extra-icon {
