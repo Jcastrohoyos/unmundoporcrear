@@ -76,6 +76,20 @@
       "serviceType": "Educación inicial, preescolar, maternal, párvulos, prekínder, kínder"
     }
   </script>
+
+  <!-- GOOGLE TAG (gtag.js) - Google Analytics 4 + Google Ads -->
+  <!-- REEMPLAZA 'G-XXXXXXXXXX' por tu ID de medición de GA4 -->
+  <!-- REEMPLAZA 'AW-XXXXXXXXXX' por tu ID de conversión de Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    // Configuración de Google Ads (descomenta y pon tu ID de conversión):
+    // gtag('config', 'AW-XXXXXXXXXX');
+  </script>
+
 </head>
 
 <body>
@@ -1460,6 +1474,51 @@
   </div>
 
   <script src="js/main.js?v=10"></script>
+
+  <!-- GOOGLE ADS - Seguimiento de conversiones (eventos) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Evento: clic en cualquier botón/enlace de WhatsApp
+      document.querySelectorAll('a[href*="wa.me"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'whatsapp_click', {
+              event_category: 'engagement',
+              event_label: 'WhatsApp - Matrículas',
+              value: 1
+            });
+          }
+        });
+      });
+
+      // Evento: envío del formulario de contacto
+      var form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'lead_form_submit', {
+              event_category: 'conversion',
+              event_label: 'Contacto - Admisión',
+              value: 1
+            });
+          }
+        });
+      }
+
+      // Evento: clic en número de teléfono
+      document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'phone_click', {
+              event_category: 'engagement',
+              event_label: 'Llamada telefónica',
+              value: 1
+            });
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
