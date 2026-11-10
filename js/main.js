@@ -159,6 +159,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       const offset = navbar ? navbar.getBoundingClientRect().height + 12 : 80;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
+      // Al llegar al formulario, el foco queda en el primer campo para escribir de una
+      if (targetId === '#contactForm') {
+        setTimeout(() => {
+          const field = document.getElementById('contact-name');
+          if (field) field.focus({ preventScroll: true });
+        }, 700);
+      }
     }
   });
 });

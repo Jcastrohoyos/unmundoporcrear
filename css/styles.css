@@ -3827,6 +3827,49 @@ i[class^="ph-"] {
   margin-top: 0.1rem;
 }
 
+/* Botón "Escríbenos" -> lleva al formulario de contacto */
+.visit-info-small .visit-write-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-500) 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-primary);
+  transition: transform var(--transition-fast), box-shadow var(--transition-normal), filter var(--transition-fast);
+}
+
+.visit-info-small .visit-write-btn i {
+  width: 1.8rem;
+  height: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+  font-size: 0.95rem;
+}
+
+.visit-info-small .visit-write-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary-lg);
+  filter: brightness(1.04);
+}
+
+.visit-info-small .visit-write-btn:focus-visible {
+  outline: 3px solid var(--color-primary-300);
+  outline-offset: 3px;
+}
+
 /* --- Floating WhatsApp Button --- */
 .floating-whatsapp {
   position: fixed;
