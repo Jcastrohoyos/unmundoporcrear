@@ -1,0 +1,8 @@
+# robots.txt - Jardín Infantil CREAR
+# https://www.unmundoporcrear.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.unmundoporcrear.com/sitemap.xml

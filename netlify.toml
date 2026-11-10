@@ -1,0 +1,49 @@
+# =============================================================
+#  Netlify - Jardín Infantil CREAR
+#  Sitio estático: no requiere comando de build ni carpeta de salida
+# =============================================================
+
+[build]
+  publish = "."
+  command = ""
+
+# ------------------------------------------------------------
+#  Caché de recursos estáticos
+#  El CSS y el JS ya se versionan con ?v=10, por eso el caché
+#  corto (1 semana) + stale-while-revalidate evita que una
+#  actualización sin cambiar el ?v= se vea bloqueada en el caché.
+# ------------------------------------------------------------
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+# ------------------------------------------------------------
+#  Cabeceras de seguridad (se aplican a todas las páginas)
+# ------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    X-XSS-Protection = "0"
+
+# ------------------------------------------------------------
+#  Redirecciones (descomenta y ajusta si creas otras páginas)
+# ------------------------------------------------------------
+# [[redirects]]
+#   from = "/admisiones"
+#   to = "/#niveles"
+#   status = 301
