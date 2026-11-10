@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.unmundoporcrear.com/img/hero.jpg">
   <link rel="canonical" href="https://www.unmundoporcrear.com/">
-  <link rel="stylesheet" href="css/styles.css?v=19">
+  <link rel="stylesheet" href="css/styles.css?v=20">
   <link rel="icon" href="img/logo2.png" type="image/png">
   <meta name="theme-color" content="#9ac321">
   
@@ -180,35 +180,46 @@
 
   <!-- HERO SECTION - Integrated Matrículas  -->
   <section class="hero section" id="inicio" aria-labelledby="hero-title">
+    <!-- Partículas decorativas de fondo -->
+    <div class="hero-bg-particles" aria-hidden="true">
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+      <span class="hero-particle"></span>
+    </div>
+
     <div class="container">
       <div class="hero-grid">
         <!-- Hero Content -->
         <div class="hero-content reveal">
-          <!-- Matrículas Title -->
+
+          <!-- Matrículas Badge animado -->
           <div class="hero-matriculas-title" aria-live="polite" role="status">
             <h2 class="matriculas-main">
               <span class="matriculas-text" data-text="¡Matrículas Abiertas!">¡Matrículas Abiertas!</span>
             </h2>
-
           </div>
 
           <p class="hero-category">
-            <i class="ph ph-heart ph-fill" aria-hidden="true"></i>
+            <i class="ph ph-map-pin ph-fill" aria-hidden="true"></i>
             <span>Jardín Infantil &amp; Preescolar en Bogotá · Santa Bárbara, Usaquén</span>
           </p>
 
+          <!-- H1 con word-cycling dinámico -->
           <h1 id="hero-title" class="hero-title">
-            <img class="heading-logo" src="img/logop.png" alt="CREAR"> a través de la <span class="animated-word" data-text="imaginación">imaginación</span> y la creatividad
+            <img class="heading-logo" src="img/logop.png" alt="CREAR"> a través de la
+            <span class="hero-typewriter" aria-label="imaginación, creatividad, juego, exploración" aria-live="polite">
+              <span class="typewriter-word">imaginación</span>
+            </span>
           </h1>
-
-          <p class="hero-description">
-            Un espacio cálido, seguro y estimulante donde los niños exploran, crecen y descubren el mundo con amor,
-            juego y aprendizaje significativo.
-          </p>
 
           <div class="hero-buttons">
             <a href="https://wa.me/573104711322" target="_blank" rel="noopener noreferrer"
-              class="btn btn-primary btn-lg" aria-label="Agendar visita pedagógica por WhatsApp">
+              class="btn btn-primary btn-lg hero-btn-pulse" aria-label="Agendar visita pedagógica por WhatsApp">
               <i class="ph ph-calendar-check" aria-hidden="true"></i>
               <span>Agendar Visita Pedagógica</span>
             </a>
@@ -217,32 +228,18 @@
               <span>Conoce los Niveles</span>
             </a>
           </div>
-
-          <div class="hero-trust-bar">
-            <div class="trust-item">
-              <i class="ph ph-check-circle ph-fill"></i>
-              <span>+40 años de trayectoria</span>
-            </div>
-            <div class="trust-item">
-              <i class="ph ph-check-circle ph-fill"></i>
-              <span>Edades de 1 a 6 años</span>
-            </div>
-            <div class="trust-item">
-              <i class="ph ph-check-circle ph-fill"></i>
-              <span>Atención personalizada</span>
-            </div>
-          </div>
         </div>
 
         <!-- Hero Image -->
         <div class="hero-image-wrapper reveal">
           <div class="hero-image-card">
             <img src="img/hero.jpg" alt="Niños felices aprendiendo y jugando en el jardín infantil CREAR" loading="eager" fetchpriority="high" width="800" height="480">
+            <div class="hero-image-shimmer" aria-hidden="true"></div>
           </div>
-          <!-- Floating Elements -->
+          <!-- Floating Cards -->
           <div class="hero-float-card float-card-1">
             <div class="float-icon icon-sun">
-              <i class="ph ph-sun-dim ph-fill"></i>
+              <i class="ph ph-shield-check ph-fill"></i>
             </div>
             <div class="float-text">
               <strong>Ambiente Seguro</strong>
@@ -258,6 +255,44 @@
               <span>Desarrollo sensorial y social</span>
             </div>
           </div>
+          <div class="hero-float-card float-card-3">
+            <div class="float-icon icon-star">
+              <i class="ph ph-star ph-fill"></i>
+            </div>
+            <div class="float-text">
+              <strong>+40 años</strong>
+              <span>de experiencia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrusel de diferenciales -->
+      <div class="hero-carousel" id="heroCarousel" role="region" aria-roledescription="carrusel"
+        aria-label="Nuestros diferenciales">
+        <div class="hero-carousel-track">
+          <div class="hero-carousel-slide is-active" role="group" aria-roledescription="diapositiva" aria-label="1 de 3">
+            <i class="ph ph-check-circle ph-fill" aria-hidden="true"></i>
+            <span>+40 años de trayectoria</span>
+          </div>
+          <div class="hero-carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 3"
+            aria-hidden="true">
+            <i class="ph ph-baby ph-fill" aria-hidden="true"></i>
+            <span>Edades de 1 a 6 años</span>
+          </div>
+          <div class="hero-carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 3"
+            aria-hidden="true">
+            <i class="ph ph-star ph-fill" aria-hidden="true"></i>
+            <span>Atención personalizada</span>
+          </div>
+        </div>
+        <div class="hero-carousel-dots">
+          <button type="button" class="hero-carousel-dot is-active" data-carousel-dot="0"
+            aria-label="Ver +40 años de trayectoria" aria-current="true"></button>
+          <button type="button" class="hero-carousel-dot" data-carousel-dot="1"
+            aria-label="Ver Edades de 1 a 6 años"></button>
+          <button type="button" class="hero-carousel-dot" data-carousel-dot="2"
+            aria-label="Ver Atención personalizada"></button>
         </div>
       </div>
     </div>
@@ -1500,7 +1535,7 @@
     <button class="lightbox-nav lightbox-next" aria-label="Imagen siguiente"><i class="ph ph-caret-right"></i></button>
   </div>
 
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=11"></script>
 
   <!-- GOOGLE ADS - Seguimiento de conversiones (eventos) -->
   <script>

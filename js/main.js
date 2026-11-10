@@ -48,6 +48,88 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// ===== Hero Carousel (diferenciales) =====
+const heroCarousel = document.getElementById('heroCarousel');
+if (heroCarousel) {
+  const slides = Array.from(heroCarousel.querySelectorAll('.hero-carousel-slide'));
+  const dots = Array.from(heroCarousel.querySelectorAll('[data-carousel-dot]'));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const intervalMs = 3800;
+  let current = 0;
+  let timer = null;
+  let paused = false;
+
+  const showSlide = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      const active = i === current;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
+    dots.forEach((dot, i) => {
+      const active = i === current;
+      dot.classList.toggle('is-active', active);
+      if (active) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+  };
+
+  const start = () => {
+    if (prefersReducedMotion || paused || timer || slides.length < 2) return;
+    timer = setInterval(() => showSlide(current + 1), intervalMs);
+  };
+
+  const stop = () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  };
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      stop();
+      showSlide(Number(dot.dataset.carouselDot));
+    });
+  });
+
+  heroCarousel.addEventListener('mouseenter', () => {
+    paused = true;
+    stop();
+  });
+
+  heroCarousel.addEventListener('mouseleave', () => {
+    paused = false;
+    start();
+  });
+
+  heroCarousel.addEventListener('focusin', () => {
+    paused = true;
+    stop();
+  });
+
+  heroCarousel.addEventListener('focusout', (e) => {
+    if (!heroCarousel.contains(e.relatedTarget)) {
+      paused = false;
+      start();
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stop();
+    } else {
+      start();
+    }
+  });
+
+  showSlide(0);
+  start();
+}
+
 // ===== Scroll Reveal Animation =====
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
@@ -498,4 +580,70 @@ expandButtons.forEach(btn => {
       navigate(diff > 0 ? 1 : -1);
     }
   }, { passive: true });
+})();
+
+// ===== Hero Typewriter / Word-Cycling =====
+(function initHeroTypewriter() {
+  const wrapper = document.querySelector('.hero-typewriter');
+  if (!wrapper) return;
+
+  const words = ['imaginación', 'creatividad', 'juego', 'exploración', 'amor'];
+  let idx = 0;
+
+  // Respect reduced-motion preference
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  function cycleWord() {
+    const current = wrapper.querySelector('.typewriter-word');
+    if (!current) return;
+
+    // Exit animation
+    current.classList.add('tw-exit');
+
+    current.addEventListener('animationend', () => {
+      idx = (idx + 1) % words.length;
+
+      const next = document.createElement('span');
+      next.className = 'typewriter-word tw-enter';
+      next.textContent = words[idx];
+
+      wrapper.replaceChildren(next);
+
+      next.addEventListener('animationend', () => {
+        next.classList.remove('tw-enter');
+      }, { once: true });
+    }, { once: true });
+  }
+
+  // Cycle every 2.8 s (exit .35s + enter .45s + display ~2s)
+  setInterval(cycleWord, 2800);
+})();
+
+// ===== Hero Parallax on mouse move (desktop only) =====
+(function initHeroParallax() {
+  const hero = document.querySelector('.hero');
+  const image = hero && hero.querySelector('.hero-image-card');
+  if (!hero || !image) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let raf;
+  hero.addEventListener('mousemove', (e) => {
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const rect = hero.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;   // -0.5 … +0.5
+      const dy = (e.clientY - cy) / rect.height;
+
+      // Subtle tilt on the image card
+      image.style.transform = `rotate(${-1 + dy * 2}deg) translate(${dx * -6}px, ${dy * -4}px)`;
+    });
+  }, { passive: true });
+
+  hero.addEventListener('mouseleave', () => {
+    if (raf) cancelAnimationFrame(raf);
+    image.style.transform = 'rotate(-1deg)';
+  });
 })();
