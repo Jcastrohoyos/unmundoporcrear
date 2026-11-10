@@ -1,3 +1,116 @@
+// ===== Cookie Banner / Consentimiento =====
+const COOKIE_KEY = 'crear_consentimiento';
+const COOKIE_VERSION = 'v1';
+
+const readConsent = () => {
+  try {
+    const raw = localStorage.getItem(COOKIE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!data || data.version !== COOKIE_VERSION) return null;
+    return data;
+  } catch (e) {
+    return null;
+  }
+};
+
+const saveConsent = (consent) => {
+  try {
+    localStorage.setItem(COOKIE_KEY, JSON.stringify({
+      version: COOKIE_VERSION,
+      analytics: !!consent.analytics,
+      ads: !!consent.ads,
+      date: new Date().toISOString()
+    }));
+  } catch (e) {
+    // modo privado o almacenamiento bloqueado: el banner sigue funcionando en memoria
+  }
+};
+
+const loadAnalytics = (consent) => {
+  const config = window.CREAR_ANALYTICS || {};
+  const isValid = (id) => id && id.indexOf('XXXXX') === -1;
+
+  if (!consent || !consent.analytics) return;
+  if (typeof window.gtag === 'function') return;
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+
+  if (isValid(config.ga4Id)) {
+    gtag('config', config.ga4Id, { anonymize_ip: true });
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.ga4Id)}`;
+    document.head.appendChild(s);
+  }
+
+  if (consent.ads && isValid(config.adsId)) {
+    gtag('config', config.adsId);
+  }
+};
+
+const initCookieBanner = () => {
+  const banner = document.getElementById('cookieBanner');
+  if (!banner) return;
+
+  const prefs = document.getElementById('cookiePrefs');
+  const analyticsBox = document.getElementById('cookieAnalytics');
+  const adsBox = document.getElementById('cookieAds');
+  const customizeBtn = document.getElementById('cookieCustomize');
+  const savePrefsBtn = document.getElementById('cookieSavePrefs');
+  const acceptAllBtn = document.getElementById('cookieAcceptAll');
+  const necessaryBtn = document.getElementById('cookieNecessary');
+
+  const showBanner = () => {
+    banner.hidden = false;
+    document.body.classList.add('cookie-banner-open');
+    requestAnimationFrame(() => banner.classList.add('is-visible'));
+  };
+
+  const hideBanner = () => {
+    banner.classList.remove('is-visible');
+    document.body.classList.remove('cookie-banner-open');
+    setTimeout(() => { banner.hidden = true; }, 450);
+  };
+
+  const applyConsent = (consent) => {
+    saveConsent(consent);
+    loadAnalytics(consent);
+    hideBanner();
+  };
+
+  acceptAllBtn.addEventListener('click', () => applyConsent({ analytics: true, ads: true }));
+  necessaryBtn.addEventListener('click', () => applyConsent({ analytics: false, ads: false }));
+
+  customizeBtn.addEventListener('click', () => {
+    const open = prefs.hidden;
+    prefs.hidden = !open;
+    savePrefsBtn.hidden = !open;
+    customizeBtn.setAttribute('aria-expanded', String(open));
+    customizeBtn.textContent = open ? 'Cerrar' : 'Personalizar';
+  });
+
+  savePrefsBtn.addEventListener('click', () => {
+    applyConsent({ analytics: !!(analyticsBox && analyticsBox.checked), ads: !!(adsBox && adsBox.checked) });
+  });
+
+  const existing = readConsent();
+  if (existing) {
+    loadAnalytics(existing);
+  } else {
+    showBanner();
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCookieBanner);
+} else {
+  initCookieBanner();
+}
+
 // ===== Mobile Menu Toggle =====
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');

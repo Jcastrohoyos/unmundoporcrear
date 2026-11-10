@@ -12,12 +12,15 @@ Se agregó al `index.html`:
 
 | Elemento | Dónde está | Qué hace |
 |---|---|---|
-| `gtag.js` (Google Analytics 4 + Google Ads) | `<head>` | Código base de medición. Tienes que poner tus IDs reales (ver paso 4). |
+| Configuración de IDs (`CREAR_ANALYTICS`) | `<head>` de `index.html` | Aquí pones tus IDs reales de GA4 y Google Ads (ver paso 4). |
+| Carga de `gtag.js` | `js/main.js` | Se carga **solo si el visitante acepta las cookies** (banner de cookies). |
 | Evento `whatsapp_click` | Antes de `</body>` | Cuenta cada clic en los botones/enlaces de WhatsApp. |
 | Evento `lead_form_submit` | Antes de `</body>` | Cuenta cada envío del formulario de contacto. |
 | Evento `phone_click` | Antes de `</body>` | Cuenta cada clic en números de teléfono (`tel:`). |
+| Banner de cookies | Antes de `</body>` | Pide el consentimiento antes de medir. La elección se recuerda en el navegador. |
+| Aviso de privacidad | `privacidad.html` | Página legal exigida por la Ley 1581 de 2012. |
 
-Estos eventos están listos para usar, pero **no enviarán datos hasta que pongas tus IDs de Google en el código** y las configuraciones en la plataforma.
+Estos eventos están listos para usar, pero **no enviarán datos hasta que pongas tus IDs de Google en el código**, aceptes las cookies y configures las conversiones en la plataforma.
 
 ---
 
@@ -71,41 +74,39 @@ Abre `index.html` en el File Manager de GoDaddy (cPanel → File Manager → `pu
 Busca el bloque que dice:
 
 ```html
-<!-- GOOGLE TAG (gtag.js) - Google Analytics 4 + Google Ads -->
-<!-- REEMPLAZA 'G-XXXXXXXXXX' por tu ID de medición de GA4 -->
-<!-- REEMPLAZA 'AW-XXXXXXXXXX' por tu ID de conversión de Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- ANALYTICS - Google Analytics 4 + Google Ads (se cargan SOLO con consentimiento)
+     REEMPLAZA 'G-XXXXXXXXXX' por tu ID de medición de GA4
+     REEMPLAZA 'AW-XXXXXXXXXX' por tu ID de conversión de Google Ads
+     Mientras el ID contenga "XXXXX" no se carga nada (modo seguro). -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-  // Configuración de Google Ads (descomenta y pon tu ID de conversión):
-  // gtag('config', 'AW-XXXXXXXXXX');
+  window.CREAR_ANALYTICS = {
+    ga4Id: 'G-XXXXXXXXXX',
+    adsId: 'AW-XXXXXXXXXX'
+  };
 </script>
 ```
 
 Y reemplázalo por algo así (ejemplo con IDs ficticios — usa los tuyos):
 
 ```html
-<!-- GOOGLE TAG (gtag.js) - Google Analytics 4 + Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-A1B2C3D4E5"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-A1B2C3D4E5');
-  gtag('config', 'AW-987654321');
+  window.CREAR_ANALYTICS = {
+    ga4Id: 'G-A1B2C3D4E5',
+    adsId: 'AW-987654321'
+  };
 </script>
 ```
 
 **Reglas importantes:**
 - Donde dice `G-XXXXXXXXXX`, pon tu ID de medición de GA4 (lo encuentras en Google Analytics → Administrador → Flujos de datos → ID de medición).
 - Donde dice `AW-XXXXXXXXXX`, pon tu ID de conversión de Google Ads (lo encuentras en Google Ads → Medición → Conversiones → Detalles de la etiqueta).
-- Si no tienes el ID de Google Ads todavía, deja la línea de `AW-` comentada (`//`) y agrégala después.
+- Si no tienes el ID de Google Ads todavía, deja `adsId: ''` y agrégalo después.
+- **No agregues el `gtag.js` por tu cuenta en otro lado del código.** La web lo carga solo y **únicamente después de que el visitante acepte las cookies** (banner de cookies). Cargar la analítica antes del consentimiento incumple la Ley 1581 de 2012.
 
 5. Guarda el archivo con **Ctrl + S**.
-6. Recarga tu web con **Ctrl + F5**.
+6. Recarga tu web con **Ctrl + F5** y, la primera vez, acepta las cookies para que se active la medición.
+
+> Al medir el Consent Mode de Google: si más adelante quieres enviar el `deny` cuando el visitante rechaza, el evento ya queda registrado en `dataLayer` con la opción de privacidad `analytics_storage: denied`.
 
 ---
 

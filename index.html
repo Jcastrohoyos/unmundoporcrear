@@ -102,17 +102,15 @@
     }
   </script>
 
-  <!-- GOOGLE TAG (gtag.js) - Google Analytics 4 + Google Ads -->
-  <!-- REEMPLAZA 'G-XXXXXXXXXX' por tu ID de medición de GA4 -->
-  <!-- REEMPLAZA 'AW-XXXXXXXXXX' por tu ID de conversión de Google Ads -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- ANALYTICS - Google Analytics 4 + Google Ads (se cargan SOLO con consentimiento)
+       REEMPLAZA 'G-XXXXXXXXXX' por tu ID de medición de GA4
+       REEMPLAZA 'AW-XXXXXXXXXX' por tu ID de conversión de Google Ads
+       Mientras el ID contenga "XXXXX" no se carga nada (modo seguro). -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-    // Configuración de Google Ads (descomenta y pon tu ID de conversión):
-    // gtag('config', 'AW-XXXXXXXXXX');
+    window.CREAR_ANALYTICS = {
+      ga4Id: 'G-XXXXXXXXXX',
+      adsId: 'AW-XXXXXXXXXX'
+    };
   </script>
 
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -1495,7 +1493,7 @@
             <a href="#niveles">Maternal (0-2 años)</a>
             <a href="#niveles">Párvulos (2-3 años)</a>
             <a href="#niveles">Prekínder (3-4 años)</a>
-            <a href="#niveles">Kínder (4-5 años)</a>
+            <a href="#niveles">Kínder (4-6 años)</a>
           </div>
         </div>
 
@@ -1520,10 +1518,12 @@
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>&copy; 2026 CREAR Jardín Infantil. Todos los derechos reservados.</p>
-        <p>Bogotá, Colombia &bull; Educación Inicial de Excelencia &bull; Matrículas Abiertas </p>
-      </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 CREAR Jardín Infantil. Todos los derechos reservados.</p>
+          <p>Bogotá, Colombia &bull; Educación Inicial de Excelencia &bull; Matrículas Abiertas &bull;
+            <a href="privacidad.html">Aviso de privacidad</a></p>
+        </div>
+
     </div>
   </footer>
   </main>
@@ -1539,7 +1539,64 @@
     <button class="lightbox-nav lightbox-next" aria-label="Imagen siguiente"><i class="ph ph-caret-right"></i></button>
   </div>
 
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=12"></script>
+
+  <!-- BANNER DE COOKIES - Consentimiento (Ley 1581 de 2012 - Habeas Data Colombia) -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieBannerTitle"
+    aria-describedby="cookieBannerText" hidden>
+    <div class="cookie-banner-inner">
+      <div class="cookie-banner-icon" aria-hidden="true">
+        <i class="ph ph-shield-check"></i>
+      </div>
+      <div class="cookie-banner-body">
+        <h2 id="cookieBannerTitle">Tu privacidad es importante</h2>
+        <p id="cookieBannerText">
+          Usamos cookies propias y de terceros para medir el alcance del sitio, mejorar tu experiencia y medir el
+          interés en las matrículas. Las cookies estrictamente necesarias siempre están activas.
+          <a href="privacidad.html" target="_blank" rel="noopener">Lee nuestro aviso de privacidad</a>.
+        </p>
+
+        <div class="cookie-prefs" id="cookiePrefs" hidden>
+          <div class="cookie-pref-item">
+            <div class="cookie-pref-text">
+              <strong>Necesarias</strong>
+              <span>Mantienen el sitio funcionando. Siempre activas.</span>
+            </div>
+            <span class="cookie-switch is-locked" aria-hidden="true"><span></span></span>
+          </div>
+          <div class="cookie-pref-item">
+            <div class="cookie-pref-text">
+              <strong>Analítica</strong>
+              <span>Google Analytics 4: páginas visitadas y origen del tráfico.</span>
+            </div>
+            <label class="cookie-switch">
+              <input type="checkbox" id="cookieAnalytics">
+              <span></span>
+              <span class="sr-only">Permitir cookies de analítica</span>
+            </label>
+          </div>
+          <div class="cookie-pref-item">
+            <div class="cookie-pref-text">
+              <strong>Publicidad</strong>
+              <span>Google Ads: medición de conversiones y campañas.</span>
+            </div>
+            <label class="cookie-switch">
+              <input type="checkbox" id="cookieAds">
+              <span></span>
+              <span class="sr-only">Permitir cookies de publicidad</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn btn-primary" id="cookieAcceptAll">Aceptar todas</button>
+        <button type="button" class="btn btn-secondary" id="cookieNecessary">Solo necesarias</button>
+        <button type="button" class="btn btn-ghost" id="cookieCustomize" aria-expanded="false"
+          aria-controls="cookiePrefs">Personalizar</button>
+        <button type="button" class="btn btn-primary" id="cookieSavePrefs" hidden>Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
 
   <!-- GOOGLE ADS - Seguimiento de conversiones (eventos) -->
   <script>

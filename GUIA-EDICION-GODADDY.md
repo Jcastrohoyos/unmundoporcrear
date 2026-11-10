@@ -244,7 +244,8 @@ Los cambios se ven inmediatamente en internet una vez guardados en File Manager.
 | Archivo / elemento | Por qué no tocarlo |
 |---|---|
 | `css/styles.css` | Controla colores, tamaños, responsive y diseño. Si lo editas puedes romper la web en móvil |
-| `js/main.js` | Controla el menú móvil, el formulario de WhatsApp, los contadores y el botón "Leer más" del blog |
+| `js/main.js` | Controla el menú móvil, el formulario de WhatsApp, los contadores, el carrusel del hero y el banner de cookies |
+| `privacidad.html` | Aviso de privacidad (Ley 1581 de 2012). Si lo editas, actualiza también la fecha de la sección 9 |
 | `img/logo2.png` | No es el logo oficial. El logo correcto es `img/logop.png` |
 | `sitemap.xml` | Archivo para Google. No lo edites salvo que cambies el dominio |
 | `robots.txt` | Archivo para motores de búsqueda. Solo toca si quieres añadir el sitemap (ver abajo) |
@@ -263,7 +264,56 @@ Guarda y listo.
 
 ---
 
-## 13. Cheatsheet rápido
+## 13. Cookies, privacidad y medición (lectura importante)
+
+### Qué es el banner de cookies
+
+Al entrar por primera vez, el sitio muestra un banner en la parte inferior con tres opciones:
+
+| Botón | Qué hace |
+|---|---|
+| **Aceptar todas** | Activa la analítica (Google Analytics 4) y la publicidad (Google Ads) |
+| **Solo necesarias** | No activa ninguna cookie de terceros: solo las imprescindibles del sitio |
+| **Personalizar** | Muestra los interruptores para elegir una por una (Necesarias siempre activas, Analítica y Publicidad opcionales) |
+
+La elección se guarda en el navegador (`localStorage`), así que **el banner solo aparece la primera vez**. Para volver a verlo, el usuario puede borrar los datos del sitio desde su navegador.
+
+### Cómo poner tus IDs de Google Analytics y Google Ads
+
+Abre `index.html` y busca el bloque que está justo después del `<head>`:
+
+```html
+<script>
+  window.CREAR_ANALYTICS = {
+    ga4Id: 'G-XXXXXXXXXX',
+    adsId: 'AW-XXXXXXXXXX'
+  };
+</script>
+```
+
+Reemplaza `G-XXXXXXXXXX` por tu ID de medición de GA4 y `AW-XXXXXXXXXX` por tu ID de conversión de Google Ads. **Mientras el ID tenga "XXXXX" no se carga nada**, así que el sitio funciona sin errores aunque todavía no los tengas.
+
+> Importante: Google Analytics y Google Ads **solo se cargan después de que el visitante acepte las cookies**. No los actives por tu cuenta en otro lugar del código.
+
+### La página `privacidad.html`
+
+Es el aviso de privacidad que exige la Ley 1581 de 2012 (Habeas Data en Colombia). Se abre desde el banner de cookies y desde el pie de página. Contains 9 secciones: responsable, datos tratados, finalidades, fundamento, cookies, terceros, conservación, derechos y cambios.
+
+Edita solo estos datos si cambian:
+
+| Dato | Dónde está en `privacidad.html` |
+|---|---|
+| Dirección | Sección 1 (lista) |
+| Correo | Sección 1 (lista) |
+| Teléfonos | Sección 1 (lista) |
+| Duración de las cookies | Sección 5 (tabla) |
+| Fecha de actualización | Sección 9 |
+
+> Si el aviso cambia, actualiza también la fecha de la sección 9.
+
+---
+
+## 14. Cheatsheet rápido
 
 | Tarea | Qué buscar en `index.html` | Dónde está |
 |---|---|---|
